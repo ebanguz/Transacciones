@@ -1,22 +1,32 @@
-<?php include('../layout/layout.php');
-      include('../helpers/utilities.php');
+<?php 
 
-      
-      
-      if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
-          
-          $estudianteId= 1;
-          $estudiantes = [];
-          
-          array_push($estudiantes, ['id'=> $estudianteId, 'nombre' => $_POST['nombre'], 'carrera' => $_POST['carrera']]);
-          
-          var_dump($_POST);
-          
-        }
-        
-        
-        
+include('../layout/layout.php');
+include('../helpers/utilities.php');
 
+session_start();
+      
+if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
+    
+    $_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
+
+    $estudiantes = $_SESSION['estudiantes'];
+          
+    $estudianteId= 1;
+          
+if (!empty($estudiantes)) {
+    $lastElement = getLastElement($estudiantes);
+    $estudianteId = $lastElement['id'] + 1;
+}
+
+
+    array_push($estudiantes, [ 'id'=> $estudianteId, 'nombre' => $_POST['nombre'], 'carrera' => $_POST['carrera'] ]);
+          
+    $_SESSION['estudiantes'] = $estudiantes;
+
+    header("Location: ../index.php");
+    exit();
+          
+}
     ?>
 
 
