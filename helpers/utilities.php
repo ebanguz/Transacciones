@@ -16,5 +16,10 @@ function getLastElement($list){
     
 }
 
+function getCarreraName($carreraId){
+
+    return $GLOBALS['carreras'][$carreraId];
+}
+
 
 ?>

@@ -19,10 +19,12 @@ if (!empty($estudiantes)) {
 }
 
 
-    array_push($estudiantes, [ 'id'=> $estudianteId, 'nombre' => $_POST['nombre'], 'carrera' => $_POST['carrera'] ]);
+    array_push($estudiantes, [ 'id'=> $estudianteId, 'nombre' => $_POST['nombre'], 'apellido'=> $_POST['apellido'], 'carrera' => $_POST['carrera'] ]);
           
     $_SESSION['estudiantes'] = $estudiantes;
 
+
+    var_dump($estudiantes);
     header("Location: ../index.php");
     exit();
           

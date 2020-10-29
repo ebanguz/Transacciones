@@ -1,11 +1,15 @@
-<?php include('layout/layout.php'); 
+<?php 
+include('layout/layout.php'); 
+include('helpers/utilities.php');
 
 session_start();
 
 
-$_SESSION['estudiantes'] = isset($_POST['estudiates']) ? $_POST['estudiates'] : array();
+$_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
 
 $listadoEstudiantes = $_SESSION['estudiantes'];
+var_dump($listadoEstudiantes);
+
 
 ?>
 
@@ -31,20 +35,31 @@ $listadoEstudiantes = $_SESSION['estudiantes'];
 
             <div class="row">
 
+                <?php if(empty($listadoEstudiantes)):?>
+
+
+                <h2>No hay estudiantes inscritos</h2>
+
+
+                <?php else: ?>
+
+                <?php foreach($listadoEstudiantes as $estudiante): ?>
 
                 <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of the card's content.</p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
+                            <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
+                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']);?></p>
+                            <a href="#" class="card-link">Editar</a>
+                            <a href="#" class="card-link">Eliminar</a>
                         </div>
                     </div>
                 </div>
 
+                <?php endforeach; ?>
+
+                <?php endif; ?>
 
             </div>
         </div>
