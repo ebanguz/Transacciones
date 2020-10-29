@@ -1,6 +1,9 @@
 <?php 
 
-function printHeader(){
+function printHeader($isPage = false){
+
+    $directory = ($isPage) ? "../":"";
+
 
     $header = <<<EOF
     <!DOCTYPE html>
@@ -12,8 +15,8 @@ function printHeader(){
     
         <title>Registro</title>
     
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link href="{$directory}assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{$directory}assets/css/style.css">
     </head>
     
     <body>
@@ -36,7 +39,7 @@ function printHeader(){
             </div>
             <div class="navbar navbar-dark bg-dark shadow-sm">
                 <div class="container d-flex justify-content-between">
-                    <a href="#" class="navbar-brand d-flex align-items-center">
+                    <a href="{$directory}index.php" class="navbar-brand d-flex align-items-center">
                         <strong>Registro</strong>
                     </a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
@@ -52,7 +55,9 @@ function printHeader(){
     echo $header;
 }
 
-function printFooter(){
+function printFooter($isPage = false){
+
+    $directory = ($isPage) ? "../":"";
 
     $footer = <<<EOF
         <footer class="text-muted">
@@ -68,7 +73,7 @@ function printFooter(){
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
 
-    <script src="assets/js/bootstrap.min.js">
+    <script src="{$directory}assets/js/bootstrap.min.js">
     </script>
 
     <div id="weava-permanent-marker" date="1603938382626"></div>
