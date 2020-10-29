@@ -1,4 +1,4 @@
-<?php include('assets/layout/layout.php'); ?>
+<?php include('layout/layout.php'); ?>
 
 
 
@@ -12,7 +12,7 @@
                     creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
                     entirely.</p>-->
             <p>
-                <a href="#" class="btn btn-primary my-2">Añadir</a>
+                <a href="Estudiantes/add.php" class="btn btn-primary my-2">Añadir</a>
             </p>
         </div>
     </section>

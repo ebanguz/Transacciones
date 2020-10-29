@@ -1,4 +1,4 @@
-<?php include('assets/layout/layout.php'); ?>
+<?php include('../layout/layout.php'); ?>
 
 
 
