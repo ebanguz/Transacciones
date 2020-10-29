@@ -22,4 +22,17 @@ function getCarreraName($carreraId){
 }
 
 
+function searchProperty($list, $property, $value){
+
+    $filter = array();
+    foreach ($list as $item) {
+        if($item[$property] == $value){
+            array_push($filter, $item);
+        }
+    }
+    return $filter;
+} 
+
+
+
 ?>

@@ -8,7 +8,16 @@ session_start();
 $_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
 
 $listadoEstudiantes = $_SESSION['estudiantes'];
-var_dump($listadoEstudiantes);
+
+
+if (!empty($listadoEstudiantes)) {
+ 
+    if (isset($_GET['carreraId'])) {
+
+        $listadoEstudiantes = searchProperty($listadoEstudiantes, 'carrera', $_GET['carreraId']);
+
+    }
+}
 
 
 ?>
@@ -32,13 +41,24 @@ var_dump($listadoEstudiantes);
 
     <div class="album py-5 bg-light">
         <div class="container">
+            <div class="row">
+
+                <div class="btn-group my-4">
+                    <a href="index.php" class="btn bg-secondary text-light">Todos</a>
+                    <a href="index.php?carreraId=1" class="btn bg-dark text-light">Redes</a>
+                    <a href="index.php?carreraId=2" class="btn bg-dark text-light">Software</a>
+                    <a href="index.php?carreraId=3" class="btn bg-dark text-light">Multimedia</a>
+                    <a href="index.php?carreraId=4" class="btn bg-dark text-light">Mecatronica</a>
+                    <a href="index.php?carreraId=5" class="btn bg-dark text-light">Seguridad Informatica</a>
+                </div>
+            </div>
 
             <div class="row">
 
                 <?php if(empty($listadoEstudiantes)):?>
 
 
-                <h2>No hay estudiantes inscritos</h2>
+                <h2>No hay estudiantes</h2>
 
 
                 <?php else: ?>
