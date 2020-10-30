@@ -33,6 +33,18 @@ function searchProperty($list, $property, $value){
     return $filter;
 } 
 
+function getElementIndex($list, $property, $value){
+
+    $index = 0;
+
+    foreach ($list as $key => $item) {
+        if($item[$property] == $value){
+          $index = $key;
+        }
+    }
+    return $index;
+} 
+
 
 
 ?>

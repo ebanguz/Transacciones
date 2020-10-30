@@ -72,7 +72,8 @@ if (!empty($listadoEstudiantes)) {
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
                             <p class="card-text"><?php echo getCarreraName($estudiante['carrera']);?></p>
                             <a href="#" class="card-link">Editar</a>
-                            <a href="#" class="card-link">Eliminar</a>
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id'];?>"
+                                class="card-link">Eliminar</a>
                         </div>
                     </div>
                 </div>
