@@ -1,8 +1,9 @@
-<?php 
+<?php
 
-function printHeader($isPage = false){
+function printHeader($isPage = false)
+{
 
-    $directory = ($isPage) ? "../":"";
+    $directory = ($isPage) ? "../" : "";
 
 
     $header = <<<EOF
@@ -21,32 +22,12 @@ function printHeader($isPage = false){
     
     <body>
         <header>
-            <div class="bg-dark collapse" id="navbarHeader">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-8 col-md-7 py-4">
-                            <h4 class="text-white">About</h4>
-    
-                        </div>
-                        <div class="col-sm-4 offset-md-1 py-4">
-                            <h4 class="text-white">Otra cosa</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="text-white">Enlace acá</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="navbar navbar-dark bg-dark shadow-sm">
                 <div class="container d-flex justify-content-between">
                     <a href="{$directory}index.php" class="navbar-brand d-flex align-items-center">
                         <strong>Registro</strong>
                     </a>
-                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                        data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                   
                 </div>
             </div>
         </header>
@@ -55,9 +36,10 @@ function printHeader($isPage = false){
     echo $header;
 }
 
-function printFooter($isPage = false){
+function printFooter($isPage = false)
+{
 
-    $directory = ($isPage) ? "../":"";
+    $directory = ($isPage) ? "../" : "";
 
     $footer = <<<EOF
         <footer class="text-muted">
@@ -90,6 +72,3 @@ EOF;
 
     echo $footer;
 }
-
-
-?>

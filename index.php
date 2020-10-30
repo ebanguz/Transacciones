@@ -39,15 +39,18 @@ if (!empty($listadoEstudiantes)) {
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
-
-                <div class="btn-group my-4">
-                    <a href="index.php" class="btn bg-secondary text-light">Todos</a>
-                    <a href="index.php?carreraId=1" class="btn bg-dark text-light">Redes</a>
-                    <a href="index.php?carreraId=2" class="btn bg-dark text-light">Software</a>
-                    <a href="index.php?carreraId=3" class="btn bg-dark text-light">Multimedia</a>
-                    <a href="index.php?carreraId=4" class="btn bg-dark text-light">Mecatronica</a>
-                    <a href="index.php?carreraId=5" class="btn bg-dark text-light">Seguridad Informatica</a>
+                <div class="col-md"></div>
+                <div class="col-md-8">
+                    <div class="btn-group my-4">
+                        <a href="index.php" class="btn bg-secondary text-light">Todos</a>
+                        <a href="index.php?carreraId=1" class="btn bg-dark text-light">Redes</a>
+                        <a href="index.php?carreraId=2" class="btn bg-dark text-light">Software</a>
+                        <a href="index.php?carreraId=3" class="btn bg-dark text-light">Multimedia</a>
+                        <a href="index.php?carreraId=4" class="btn bg-dark text-light">Mecatronica</a>
+                        <a href="index.php?carreraId=5" class="btn bg-dark text-light">Seguridad Informatica</a>
+                    </div>
                 </div>
+                <div class="col-md"></div>
             </div>
 
             <div class="row">
@@ -65,16 +68,16 @@ if (!empty($listadoEstudiantes)) {
                 <?php if ($estudiante['estado'] == '0') : ?>
 
                 <div class="col-md-4">
-                    <div class="card">
+                    <div class="card bg-dark text-light">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
                             <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
                             <p class="card-text"><?php echo 'Inactivo'; ?></p>
                             <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
-                                class="card-link">Editar</a>
+                                class="btn btn-primary">Editar</a>
                             <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
-                                class="card-link">Eliminar</a>
+                                class="btn btn-primary">Eliminar</a>
                         </div>
                     </div>
                 </div>
@@ -85,11 +88,11 @@ if (!empty($listadoEstudiantes)) {
                             <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
                             <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
-                            <p class="card-text"><?php echo 'Activo'; ?></p>
+                            <p class="card-text" style="visibility: hidden;"><?php echo 'm'; ?></p>
                             <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
-                                class="card-link">Editar</a>
+                                class="btn btn-primary">Editar</a>
                             <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
-                                class="card-link">Eliminar</a>
+                                class="btn btn-primary">Eliminar</a>
                         </div>
                     </div>
                 </div>
