@@ -22,7 +22,14 @@ if (isset($_GET['id'])) {
 
     if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
 
-        $updateEstudiante =  ['id' => $estudianteId, 'nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido'], 'carrera' => $_POST['carrera']];
+        if (isset($_POST['estado']) && $_POST['estado'] == '1') {
+            $estado = '1';
+        } else {
+            $estado = '0';
+        }
+
+
+        $updateEstudiante =  ['id' => $estudianteId, 'nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido'], 'carrera' => $_POST['carrera'], 'estado' =>  $estado];
 
         $estudiantes[$elementIndex] = $updateEstudiante;
 
@@ -88,11 +95,11 @@ if (isset($_GET['id'])) {
 
                                 </select>
                             </div>
-                            <!-- 
                             <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="estado" name = "estado">
+                                <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1"
+                                    checked>
                                 <label class="form-check-label" for="estado">Activo</label>
-                            </div> -->
+                            </div>
 
                             <a href="../index.php" class="align-self-end">Volver atrás</a>
                             <button type="submit" class="btn btn-primary float-right">Submit</button>

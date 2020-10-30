@@ -29,9 +29,7 @@ if (!empty($listadoEstudiantes)) {
     <section class="jumbotron text-center">
         <div class="container">
             <h1>Integrar estudiante</h1>
-            <!-- <p class="lead text-muted">Something short and leading about the collection below—its contents, the
-                    creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it
-                    entirely.</p>-->
+
             <p>
                 <a href="Estudiantes/add.php" class="btn btn-primary my-2">Añadir</a>
             </p>
@@ -64,12 +62,30 @@ if (!empty($listadoEstudiantes)) {
 
                 <?php foreach ($listadoEstudiantes as $estudiante) : ?>
 
+                <?php if ($estudiante['estado'] == '0') : ?>
+
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
                             <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
+                            <p class="card-text"><?php echo 'Inactivo'; ?></p>
+                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
+                                class="card-link">Editar</a>
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
+                                class="card-link">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+                <?php else : ?>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
+                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
+                            <p class="card-text"><?php echo 'Activo'; ?></p>
                             <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
                                 class="card-link">Editar</a>
                             <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
@@ -78,6 +94,7 @@ if (!empty($listadoEstudiantes)) {
                     </div>
                 </div>
 
+                <?php endif; ?>
                 <?php endforeach; ?>
 
                 <?php endif; ?>
