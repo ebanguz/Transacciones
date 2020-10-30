@@ -1,5 +1,5 @@
-<?php 
-include('layout/layout.php'); 
+<?php
+include('layout/layout.php');
 include('helpers/utilities.php');
 
 session_start();
@@ -11,11 +11,10 @@ $listadoEstudiantes = $_SESSION['estudiantes'];
 
 
 if (!empty($listadoEstudiantes)) {
- 
+
     if (isset($_GET['carreraId'])) {
 
         $listadoEstudiantes = searchProperty($listadoEstudiantes, 'carrera', $_GET['carreraId']);
-
     }
 }
 
@@ -55,24 +54,25 @@ if (!empty($listadoEstudiantes)) {
 
             <div class="row">
 
-                <?php if(empty($listadoEstudiantes)):?>
+                <?php if (empty($listadoEstudiantes)) : ?>
 
 
                 <h2>No hay estudiantes</h2>
 
 
-                <?php else: ?>
+                <?php else : ?>
 
-                <?php foreach($listadoEstudiantes as $estudiante): ?>
+                <?php foreach ($listadoEstudiantes as $estudiante) : ?>
 
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
-                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']);?></p>
-                            <a href="#" class="card-link">Editar</a>
-                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id'];?>"
+                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
+                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
+                                class="card-link">Editar</a>
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
                                 class="card-link">Eliminar</a>
                         </div>
                     </div>
