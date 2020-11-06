@@ -1,29 +1,33 @@
 <?php
-include('layout/layout.php');
-include('helpers/utilities.php');
 
-session_start();
+require_once 'layout/layout.php';
+require_once 'helpers/utilities.php';
+require_once 'Estudiantes/estudiante.php';
+require_once 'service/IServiceBase.php';
+require_once 'Estudiantes/EstudianteServiceCookies.php';
 
+$layout = new Layout(false);
+$utilities = new Utilities();
+$service = new EstudianteServiceCookies();
 
-$_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
-
-$listadoEstudiantes = $_SESSION['estudiantes'];
-
+$listadoEstudiantes = $service->GetList();
+// var_dump($listadoEstudiantes);
 
 if (!empty($listadoEstudiantes)) {
 
-    if (isset($_GET['carreraId'])) {
+ if (isset($_GET['carreraId'])) {
 
-        $listadoEstudiantes = searchProperty($listadoEstudiantes, 'carrera', $_GET['carreraId']);
-    }
+  $listadoEstudiantes = $utilities->searchProperty($listadoEstudiantes, 'carreraId', $_GET['carreraId']);
+
+ }
+
 }
-
 
 ?>
 
 
 
-<?php printHeader(); ?>
+<?php $layout->printHeader();?>
 <main role="main">
 
     <section class="jumbotron text-center">
@@ -55,52 +59,53 @@ if (!empty($listadoEstudiantes)) {
 
             <div class="row">
 
-                <?php if (empty($listadoEstudiantes)) : ?>
+                <?php if (empty($listadoEstudiantes)): ?>
 
 
                 <h2>No hay estudiantes</h2>
 
 
-                <?php else : ?>
+                <?php else: ?>
 
-                <?php foreach ($listadoEstudiantes as $estudiante) : ?>
+                <?php foreach ($listadoEstudiantes as $estudiante): ?>
 
-                <?php if ($estudiante['estado'] == '0') : ?>
+
+                <?php if ($estudiante->estado == '0'): ?>
 
                 <div class="col-md-4">
                     <div class="card bg-dark text-light">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
-                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
+                            <h5 class="card-title"><?php echo $estudiante->apellido ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante->nombre ?></h6>
+                            <p class="card-text"><?php echo $estudiante->getCarreraName(); ?></p>
                             <p class="card-text"><?php echo 'Inactivo'; ?></p>
-                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
+                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante->id; ?>"
                                 class="btn btn-primary">Editar</a>
-                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante->id; ?>"
                                 class="btn btn-primary">Eliminar</a>
                         </div>
                     </div>
                 </div>
-                <?php else : ?>
+                <?php else: ?>
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $estudiante['apellido'] ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante['nombre'] ?></h6>
-                            <p class="card-text"><?php echo getCarreraName($estudiante['carrera']); ?></p>
+                            <h5 class="card-title"><?php echo $estudiante->apellido ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante->nombre ?></h6>
+                            <p class="card-text"><?php echo $estudiante->getCarreraName(); ?></p>
                             <p class="card-text" style="visibility: hidden;"><?php echo 'm'; ?></p>
-                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante['id']; ?>"
+                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante->id; ?>"
                                 class="btn btn-primary">Editar</a>
-                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante['id']; ?>"
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante->id; ?>"
                                 class="btn btn-primary">Eliminar</a>
                         </div>
                     </div>
                 </div>
 
-                <?php endif; ?>
-                <?php endforeach; ?>
+                <?php endif;?>
+                <?php endforeach;?>
 
-                <?php endif; ?>
+                <?php endif;?>
 
             </div>
         </div>
@@ -108,4 +113,4 @@ if (!empty($listadoEstudiantes)) {
 
 </main>
 
-<?php printFooter(); ?>
+<?php $layout->printFooter();?>

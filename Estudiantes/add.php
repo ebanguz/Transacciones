@@ -1,38 +1,35 @@
 <?php
 
-include('../layout/layout.php');
-include('../helpers/utilities.php');
+require_once '../layout/layout.php';
+require_once '../helpers/utilities.php';
+require_once 'estudiante.php';
+require_once '../service/IServiceBase.php';
+require_once 'EstudianteServiceCookies.php';
 
-session_start();
+$layout = new Layout(true);
+$service = new EstudianteServiceCookies();
+$utilities = new Utilities();
 
 if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
 
-    $_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
+ $newEstudiante = new Estudiante();
 
-    $estudiantes = $_SESSION['estudiantes'];
+//  $Lista = [];
+ //  array_push($Lista, 0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado']);
+ //  var_dump($Lista);
+ var_dump($newEstudiante);
+ $newEstudiante->initializeData(0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado']);
 
-    $estudianteId = 1;
+ $service->Add($newEstudiante);
 
-    if (!empty($estudiantes)) {
-        $lastElement = getLastElement($estudiantes);
-        $estudianteId = $lastElement['id'] + 1;
-    }
-
-
-    array_push($estudiantes, ['id' => $estudianteId, 'nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido'], 'carrera' => $_POST['carrera'], 'estado' =>  $_POST['estado']]);
-
-    $_SESSION['estudiantes'] = $estudiantes;
-
-
-    var_dump($estudiantes);
-    header("Location: ../index.php");
-    exit();
+ header("Location: ../index.php");
+ exit();
 }
 ?>
 
 
 
-<?php printHeader(true); ?>
+<?php $layout->printHeader();?>
 <main role="main">
 
     <div class="row">
@@ -59,11 +56,11 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrer
 
                                     <option value="">Selecciona una carrera</option>
 
-                                    <?php foreach ($carreras as $id => $text) { ?>
+                                    <?php foreach ($utilities->carreras as $id => $text) {?>
 
                                     <option value="<?php echo $id ?>"> <?php echo $text ?> </option>
 
-                                    <?php } ?>
+                                    <?php }?>
 
 
                                 </select>
@@ -89,4 +86,4 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrer
 
 </main>
 
-<?php printFooter(true); ?>
+<?php $layout->printFooter();?>

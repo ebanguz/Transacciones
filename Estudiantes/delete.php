@@ -1,29 +1,21 @@
-<?php 
+<?php
 
-include ('../helpers/utilities.php');
+require_once '../helpers/utilities.php';
+require_once 'estudiante.php';
+require_once '../service/IServiceBase.php';
+require_once 'EstudianteServiceCookies.php';
 
+$service = new EstudianteServiceCookies();
 
-session_start();
+$isContainedId = isset($_GET['id']);
 
-$estudiantes = $_SESSION['estudiantes'];
+if ($isContainedId) {
 
-if (isset($_GET['id'])) {
+ $estudianteId = $_GET['id'];
 
-    $estudianteId = $_GET['id'];
-
-    $elementIndex = getElementIndex($estudiantes,'id',$estudianteId);
-
-    unset($estudiantes[$elementIndex]);
-
-    $_SESSION['estudiantes'] = $estudiantes;
-
-
-    header('Location: ../index.php');
-
-    exit();
-
+ $service->Delete($estudianteId);
 }
+header('Location: ../index.php');
 
-
-
+exit();
 ?>

@@ -1,59 +1,48 @@
 <?php
 
-include('../layout/layout.php');
-include('../helpers/utilities.php');
+require_once '../layout/layout.php';
+require_once '../helpers/utilities.php';
+require_once 'estudiante.php';
+require_once '../service/IServiceBase.php';
+require_once 'EstudianteServiceCookies.php';
 
-
-session_start();
-
+$layout = new Layout(true);
+$service = new EstudianteServiceCookies();
+$utilities = new Utilities();
 
 if (isset($_GET['id'])) {
 
+ $estudianteId = $_GET['id'];
 
-    $estudianteId = $_GET['id'];
+ $element = $service->GetById($estudianteId);
 
-    $_SESSION['estudiantes'] = isset($_SESSION['estudiantes']) ? $_SESSION['estudiantes'] : array();
+ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
 
-    $estudiantes = $_SESSION['estudiantes'];
+  if (isset($_POST['estado']) && $_POST['estado'] == '1') {
+   $estado = '1';
+  } else {
+   $estado = '0';
+  }
+  $updateEstudiante = new Estudiante();
 
-    $element = searchProperty($estudiantes, 'id', $estudianteId)[0];
-    $elementIndex = getElementIndex($estudiantes, 'id', $estudianteId);
+  $updateEstudiante->initializeData($estudianteId, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $estado);
 
-
-    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
-
-        if (isset($_POST['estado']) && $_POST['estado'] == '1') {
-            $estado = '1';
-        } else {
-            $estado = '0';
-        }
-
-
-        $updateEstudiante =  ['id' => $estudianteId, 'nombre' => $_POST['nombre'], 'apellido' => $_POST['apellido'], 'carrera' => $_POST['carrera'], 'estado' =>  $estado];
-
-        $estudiantes[$elementIndex] = $updateEstudiante;
-
-        $_SESSION['estudiantes'] = $estudiantes;
-
-
-
-        header("Location: ../index.php");
-        exit();
-    }
+  $service->Update($estudianteId, $updateEstudiante);
+  header("Location: ../index.php");
+  exit();
+ }
 } else {
 
-    header("Location: ../index.php");
-    exit();
+ header("Location: ../index.php");
+ exit();
 }
-
-
-
 
 ?>
 
 
 
-<?php printHeader(true); ?>
+
+<?php $layout->printHeader();?>
 <main role="main">
 
     <div class="row">
@@ -80,18 +69,19 @@ if (isset($_GET['id'])) {
                                 <label for="carrera">Carrera:</label>
                                 <select class="form-control" id="carrera" name="carrera">
 
-                                    <?php foreach ($carreras as $id => $text) : ?>
 
-                                    <?php if ($id == $element['carrera']) : ?>
+                                    <?php foreach ($utilities->carreras as $id => $text): ?>
+
+                                    <?php if ($id == $element['carrera']): ?>
 
                                     <option selected value="<?php echo $id ?>"> <?php echo $text; ?></option>
 
-                                    <?php else : ?>
+                                    <?php else: ?>
 
                                     <option value="<?php echo $id ?>"> <?php echo $text; ?></option>
 
-                                    <?php endif; ?>
-                                    <?php endforeach; ?>
+                                    <?php endif;?>
+                                    <?php endforeach;?>
 
                                 </select>
                             </div>
@@ -114,4 +104,4 @@ if (isset($_GET['id'])) {
 
 </main>
 
-<?php printFooter(true); ?>
+<?php $layout->printFooter();?>

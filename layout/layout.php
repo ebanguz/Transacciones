@@ -1,47 +1,52 @@
 <?php
 
-function printHeader($isPage = false)
-{
+class Layout {
 
-    $directory = ($isPage) ? "../" : "";
+ private $isPage;
+ private $directory;
 
+ function __construct($page) {
 
-    $header = <<<EOF
+  $this->isPage = $page;
+  $this->directory = ($this->isPage) ? "../" : "";
+
+ }
+
+ public function printHeader() {
+
+  $header = <<<EOF
     <!DOCTYPE html>
     <html lang="en">
-    
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
         <title>Registro</title>
-    
-        <link href="{$directory}assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{$directory}assets/css/style.css">
+
+        <link href="{$this->directory}assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{$this->directory}assets/css/style.css">
     </head>
-    
+
     <body>
         <header>
             <div class="navbar navbar-dark bg-dark shadow-sm">
                 <div class="container d-flex justify-content-between">
-                    <a href="{$directory}index.php" class="navbar-brand d-flex align-items-center">
+                    <a href="{$this->directory}index.php" class="navbar-brand d-flex align-items-center">
                         <strong>Registro</strong>
                     </a>
-                   
+
                 </div>
             </div>
         </header>
     EOF;
 
-    echo $header;
-}
+  echo $header;
+ }
 
-function printFooter($isPage = false)
-{
+ public function printFooter() {
 
-    $directory = ($isPage) ? "../" : "";
-
-    $footer = <<<EOF
+  $footer = <<<EOF
         <footer class="text-muted">
         <div class="container">
             <p class="float-right">
@@ -55,7 +60,7 @@ function printFooter($isPage = false)
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
     </script>
 
-    <script src="{$directory}assets/js/bootstrap.min.js">
+    <script src="{$this->directory}assets/js/bootstrap.min.js">
     </script>
 
     <div id="weava-permanent-marker" date="1603938382626"></div>
@@ -70,5 +75,8 @@ function printFooter($isPage = false)
     </html>
 EOF;
 
-    echo $footer;
+  echo $footer;
+ }
 }
+
+?>
