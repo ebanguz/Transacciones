@@ -10,13 +10,10 @@ $layout = new Layout(true);
 $service = new EstudianteServiceCookies();
 $utilities = new Utilities();
 
-if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
+if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera']) && isset($_FILES['profilePhoto'])) {
 
  $newEstudiante = new Estudiante();
 
-//  $Lista = [];
- //  array_push($Lista, 0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado']);
- //  var_dump($Lista);
  var_dump($newEstudiante);
  $newEstudiante->initializeData(0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado']);
 
@@ -41,7 +38,7 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrer
                         Añadir Estudiante
                     </div>
                     <div class="card-body">
-                        <form action="add.php" method="POST">
+                        <form enctype="multipart/form-data" action="add.php" method="POST">
                             <div class="form-group">
                                 <label for="name">Nombre del Estudiante:</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre">
@@ -64,6 +61,10 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrer
 
 
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="photo">Foto de perfil:</label>
+                                <input type="file" class="form-control" id="photo" name="profilePhoto">
                             </div>
 
                             <div style="display: none;" class="form-group form-check">

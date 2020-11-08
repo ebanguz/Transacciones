@@ -54,6 +54,30 @@ class EstudianteServiceCookies implements IServiceBase {
   }
 
   $entity->id = $estudianteId;
+  $entity->profilePhoto = "";
+
+  if (isset($_FILES['profilePhoto'])) {
+
+   $photoFile = $_FILES['profilePhoto'];
+
+   if ($photoFile['error'] == 4) {
+
+    $entity->profilePhoto = "";
+
+   } else {
+    $typeReplace = str_replace("image/", "", $_FILES['profilePhoto']['type']);
+    $type = $photoFile['type'];
+    $size = $photoFile['size'];
+    $name = $estudianteId . '.' . $typeReplace;
+    $tmpName = $photoFile['tmp_name'];
+
+    $success = $this->utilities->uploadImage('../assets/img/estudiantes/', $name, $tmpName, $type, $size);
+
+    if ($success) {
+     $entity->profilePhoto = $name;
+    }}
+
+  }
 
   array_push($listadoEstudiantes, $entity);
 
@@ -66,6 +90,34 @@ class EstudianteServiceCookies implements IServiceBase {
   $element = $this->GetById($id);
   $listadoEstudiantes = $this->GetList();
   $elementIndex = $this->utilities->getElementIndex($listadoEstudiantes, "id", $id);
+
+  if (isset($_FILES['profilePhoto'])) {
+
+   $photoFile = $_FILES['profilePhoto'];
+
+   if ($photoFile == 4) {
+
+    $entity->profilePhoto = $entity->profilePhoto;
+
+   } else {
+
+    $typeReplace = str_replace("image/", "", $_FILES['profilePhoto']['type']);
+    $type = $_FILES['profilePhoto']['type'];
+    $size = $_FILES['profilePhoto']['size'];
+    $tmpName = $_FILES['profilePhoto']['tmp_name'];
+
+    $name = $id . "." . $typeReplace;
+
+    $success = $this->utilities->uploadImage("../assets/img/estudiantes/", $name, $tmpName, $type, $size);
+
+    if ($success) {
+     $entity->profilePhoto = $name;
+
+    }
+   }
+
+  }
+
   $listadoEstudiantes[$elementIndex] = $entity;
   setcookie($this->cookieName, json_encode($listadoEstudiantes), $this->utilities->GetCookieTime(), "/");
  }

@@ -54,15 +54,15 @@ if (isset($_GET['id'])) {
                         Añadir Estudiante
                     </div>
                     <div class="card-body">
-                        <form action="edit.php?id=<?php echo $element['id'] ?>" method="POST">
+                        <form action="edit.php?id=<?php echo $element->id ?>" method="POST">
                             <div class="form-group">
                                 <label for="name">Nombre del Estudiante:</label>
-                                <input type="text" value="<?php echo $element['nombre'] ?>" class="form-control"
+                                <input type="text" value="<?php echo $element->nombre ?>" class="form-control"
                                     id="nombre" name="nombre">
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Apellido del Estudiante:</label>
-                                <input type="text" value="<?php echo $element['apellido'] ?>" class="form-control"
+                                <input type="text" value="<?php echo $element->apellido ?>" class="form-control"
                                     id="apellido" name="apellido">
                             </div>
                             <div class=" form-group">
@@ -72,7 +72,7 @@ if (isset($_GET['id'])) {
 
                                     <?php foreach ($utilities->carreras as $id => $text): ?>
 
-                                    <?php if ($id == $element['carrera']): ?>
+                                    <?php if ($id == $element->carreraId): ?>
 
                                     <option selected value="<?php echo $id ?>"> <?php echo $text; ?></option>
 

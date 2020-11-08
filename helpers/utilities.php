@@ -44,6 +44,47 @@ class Utilities {
   return $index;
  }
 
-}
+ public function uploadImage($directory, $name, $tmpFile, $type, $size) {
 
+  $isSuccess = false;
+
+  if (($type == "image/gif") ||
+   ($type == "image/png") ||
+   ($type == "image/jpg") ||
+   ($type == "image/jpeg") ||
+   ($type == "image/JPG") ||
+   ($type == "image/pjpeg") && $size < 1000000) {
+
+   if (!file_exists($directory)) {
+
+    mkdir($directory, 0777, true);
+
+    if (file_exists($directory)) {
+
+     $this->uploadFile($directory . $name, $tmpFile);
+     $isSuccess = true;
+    }
+
+   } else {
+
+    $this->uploadFile($directory . $name, $tmpFile);
+    $isSuccess = true;
+   }
+  } else {
+
+   $isSuccess = true;
+  }
+  return $isSuccess;
+ }
+
+ private function uploadFile($name, $tmpFile) {
+  if (file_exists($name)) {
+   unlink($name);
+  }
+
+  move_uploaded_file($tmpFile, $name);
+
+ }
+
+}
 ?>
