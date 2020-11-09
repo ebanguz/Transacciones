@@ -11,16 +11,13 @@ $utilities = new Utilities();
 $service = new EstudianteServiceCookies();
 
 $listadoEstudiantes = $service->GetList();
-// var_dump($listadoEstudiantes);
 
 if (!empty($listadoEstudiantes)) {
 
  if (isset($_GET['carreraId'])) {
 
   $listadoEstudiantes = $utilities->searchProperty($listadoEstudiantes, 'carreraId', $_GET['carreraId']);
-
  }
-
 }
 
 ?>
@@ -59,57 +56,64 @@ if (!empty($listadoEstudiantes)) {
 
             <div class="row">
 
+
                 <?php if (empty($listadoEstudiantes)): ?>
 
-
                 <h2>No hay estudiantes</h2>
-
 
                 <?php else: ?>
 
                 <?php foreach ($listadoEstudiantes as $estudiante): ?>
 
+                <?php $status = 'Activo';?>
+                <?php $darkClass = '';?>
 
                 <?php if ($estudiante->estado == '0'): ?>
-
-                <div class="col-md-4">
-                    <div class="card bg-dark text-light">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $estudiante->apellido ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante->nombre ?></h6>
-                            <p class="card-text"><?php echo $estudiante->getCarreraName(); ?></p>
-                            <p class="card-text"><?php echo 'Inactivo'; ?></p>
-                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante->id; ?>"
-                                class="btn btn-primary">Editar</a>
-                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante->id; ?>"
-                                class="btn btn-primary">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
-                <?php else: ?>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $estudiante->apellido ?></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante->nombre ?></h6>
-                            <p class="card-text"><?php echo $estudiante->getCarreraName(); ?></p>
-                            <p class="card-text" style="visibility: hidden;"><?php echo 'm'; ?></p>
-                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante->id; ?>"
-                                class="btn btn-primary">Editar</a>
-                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante->id; ?>"
-                                class="btn btn-primary">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
+                <?php $status = 'Inactivo';?>
+                <?php $darkClass = 'bg-dark text-light';?>
 
                 <?php endif;?>
-                <?php endforeach;?>
 
+
+                <div class="col-md-4">
+
+                    <div class="card <?php echo $darkClass; ?> my-2">
+
+                        <?php if ($estudiante->profilePhoto == "" || $estudiante->profilePhoto == null): ?>
+
+                        <img class="bd-placeholder-img card-img-top" src=<?php echo "assets/img/default.png"; ?>
+                            width="100%" height="225" aria-label="Placeholder: Thumbnail">
+
+                        <?php else: ?>
+
+                        <img class="bd-placeholder-img card-img-top"
+                            src=<?php echo "assets/img/estudiantes/" . $estudiante->profilePhoto ?> width="100%"
+                            height="225" aria-label="Placeholder: Thumbnail">
+
+                        <?php endif;?>
+
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $estudiante->apellido ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo $estudiante->nombre ?></h6>
+                            <p class="card-text"><?php echo $estudiante->getCarreraName(); ?></p>
+                            <p class="card-text"> <b>Materias favoritas:</b> <?php echo $estudiante->favAsig; ?></p>
+                            <p class="card-text"><?php echo $status; ?></p>
+                            <a href="Estudiantes/edit.php?id=<?php echo $estudiante->id; ?>"
+                                class="btn btn-primary">Editar</a>
+                            <a href="Estudiantes/delete.php?id=<?php echo $estudiante->id; ?>"
+                                class="btn btn-primary">Eliminar</a>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <?php endforeach;?>
                 <?php endif;?>
 
             </div>
-        </div>
-    </div>
+
+
 
 </main>
 

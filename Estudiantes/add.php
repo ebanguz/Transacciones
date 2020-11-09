@@ -10,12 +10,12 @@ $layout = new Layout(true);
 $service = new EstudianteServiceCookies();
 $utilities = new Utilities();
 
-if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera']) && isset($_FILES['profilePhoto'])) {
+if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera']) && isset($_POST['favAsig']) && isset($_FILES['profilePhoto'])) {
 
  $newEstudiante = new Estudiante();
 
  var_dump($newEstudiante);
- $newEstudiante->initializeData(0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado']);
+ $newEstudiante->initializeData(0, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $_POST['estado'], $_POST['favAsig']);
 
  $service->Add($newEstudiante);
 
@@ -62,6 +62,12 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrer
 
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="favAsig">Materias favoritas:</label>
+                                <input type="text" class="form-control" id="favAsig" name="favAsig">
+                            </div>
+
                             <div class="form-group">
                                 <label for="photo">Foto de perfil:</label>
                                 <input type="file" class="form-control" id="photo" name="profilePhoto">

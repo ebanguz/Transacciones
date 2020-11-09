@@ -16,7 +16,7 @@ if (isset($_GET['id'])) {
 
  $element = $service->GetById($estudianteId);
 
- if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera'])) {
+ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['carrera']) && isset($_POST['favAsig'])) {
 
   if (isset($_POST['estado']) && $_POST['estado'] == '1') {
    $estado = '1';
@@ -25,7 +25,7 @@ if (isset($_GET['id'])) {
   }
   $updateEstudiante = new Estudiante();
 
-  $updateEstudiante->initializeData($estudianteId, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $estado);
+  $updateEstudiante->initializeData($estudianteId, $_POST['nombre'], $_POST['apellido'], $_POST['carrera'], $estado, $_POST['favAsig']);
 
   $service->Update($estudianteId, $updateEstudiante);
   header("Location: ../index.php");
@@ -54,7 +54,8 @@ if (isset($_GET['id'])) {
                         Añadir Estudiante
                     </div>
                     <div class="card-body">
-                        <form action="edit.php?id=<?php echo $element->id ?>" method="POST">
+                        <form enctype="multipart/form-data" action="edit.php?id=<?php echo $element->id ?>"
+                            method="POST">
                             <div class="form-group">
                                 <label for="name">Nombre del Estudiante:</label>
                                 <input type="text" value="<?php echo $element->nombre ?>" class="form-control"
@@ -84,6 +85,15 @@ if (isset($_GET['id'])) {
                                     <?php endforeach;?>
 
                                 </select>
+                            </div>
+
+                            <label for="fav">Materias favoritas:</label>
+                            <input type="text" value="<?php echo $element->favAsig ?>" class="form-control" id="fav"
+                                name="favAsig">
+
+                            <div class="form-group">
+                                <label for="photo">Foto de perfil:</label>
+                                <input type="file" class="form-control" id="photo" name="profilePhoto">
                             </div>
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" id="estado" name="estado" value="1">

@@ -7,6 +7,7 @@ class Estudiante {
  public $apellido;
  public $carreraId;
  public $estado;
+ public $favAsig;
  public $profilePhoto;
 
  private $utilities;
@@ -23,13 +24,14 @@ class Estudiante {
 
  }
 
- public function initializeData($id, $nombre, $apellido, $carreraId, $estado) {
+ public function initializeData($id, $nombre, $apellido, $carreraId, $estado, $favAsig) {
 
   $this->id = $id;
   $this->nombre = $nombre;
   $this->apellido = $apellido;
   $this->carreraId = $carreraId;
   $this->estado = $estado;
+  $this->favAsig = $favAsig;
 
  }
 

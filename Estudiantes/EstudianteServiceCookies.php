@@ -4,6 +4,7 @@ class EstudianteServiceCookies implements IServiceBase {
 
  private $utilities;
  private $cookieName;
+
  function __construct() {
 
   $this->utilities = new Utilities();
